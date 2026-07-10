@@ -1,0 +1,42 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "What type of support are you applying for?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["support-type"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["support-type"], href: "#support-type" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "support-type",
+      fieldset: {
+        legend: {
+          text: "What type of support are you applying for?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: { text: "Select the option that best matches what you need." },
+      errorMessage: errors["support-type"] if errors else null,
+      value: data["support-type"],
+      items: [
+        { value: "financial", text: "Financial support" },
+        { value: "practical", text: "Practical support" },
+        { value: "not-sure", text: "I am not sure" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
