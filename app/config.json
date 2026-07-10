@@ -1,0 +1,10 @@
+{
+  "serviceName": "Apply for support",
+  "serviceUrl": "/start",
+  "useAuth": false,
+  "plugins": {
+    "govuk-frontend": {
+      "rebrand": true
+    }
+  }
+}
