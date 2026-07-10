@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Which of these best describes you?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["applicant-type"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["applicant-type"], href: "#applicant-type" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "applicant-type",
+      fieldset: {
+        legend: {
+          text: "Which of these best describes you?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: { text: "Select the option that matches your current situation." },
+      errorMessage: errors["applicant-type"] if errors else null,
+      value: data["applicant-type"],
+      items: [
+        { value: "myself", text: "I am applying for myself" },
+        { value: "someone-else", text: "I am applying on behalf of someone else" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
